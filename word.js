@@ -1,3 +1,4 @@
+
 var Word = function(word) {
     this.word = word;
     // for each guessed character, step through the computer's word to see if it matches
@@ -15,9 +16,6 @@ var Word = function(word) {
                 lettersGuessed.push(letter)
                 // letterFound is now true
                 letterFound = true;
-                // display results
-                console.log(word + "\n" + "So Far You've Guessed: " +
-                    lettersGuessed + "\n" + "Guesses Remaining: " + guessesLeft)
             }
         }
     }
@@ -27,7 +25,7 @@ var Word = function(word) {
         var weWon = true;
         for (var i = 0; i < this.word.length; i++) {
             // if there are any " _ " left you haven't won
-            if (letters[i].output == "_") {
+            if (lettersFromWord[i].output == "_") {
                 weWon = false;
             }
         }
@@ -35,4 +33,4 @@ var Word = function(word) {
 }
 
 // export it
-module.exports = Word;
+module.exports = Word

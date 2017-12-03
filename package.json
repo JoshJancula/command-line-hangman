@@ -2,7 +2,7 @@
   "name": "command-line-hangman",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "play.js",
   "scripts": {
     "test": "test"
   },

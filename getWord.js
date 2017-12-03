@@ -1,5 +1,5 @@
 
-var Word = require("./word.js");
+var Word = require("./words.txt");
 var fs = require("fs");
 
   //selects a random word from words.txt

@@ -5,7 +5,7 @@ var getWord = require("./getWord.js");
 //// link to the create file
 var CreateWord = require("./create.js");
 // gets the letters input into the letter.js file
-var Letter = require("./letter.js");
+var Letter = require("./letters.js");
 // the word getting pulled from getWord
 var word = getWord.RandomWord();
 // the currentWord for this round
@@ -16,62 +16,114 @@ var guessesLeft = 5;
 var lettersGuessed = [];
 // letters in the currentWord
 var lettersFromWord;
-// the letters array is populated by ...
+// the lettersFromLoop array is populated by ...
 for (var i = 0; i < currentWord.length; i++) { // .. this lovely loop
-    // which pushes each letter to letters
-    lettersFromWord.push(new Letter(currentWord.slice(i, 1)));
+  // which pushes each letter to letters
+  lettersFromWord.push(new Letter(currentWord.slice(i, 1)));
 }
+
+
+
+// function to display the currentWord with _ and letters you've gotten correct
+function displayWord() {
+  var currentDisplay = "";
+  // go thru and change each letter and replace it with _
+  for (var i = 0; i < lettersFromWord.length; i++) {
+    currentDisplay += lettersFromWord[i].showOutput(); // replaces letter to _
+    currentDisplay += " "; // adds to display
+  } // show the display
+  console.log(currentDisplay);
+}
+
+
+// function to play the game
+function playGame() {
+  // first load the display
+  displayWord();
+  // ask the user to input a letter
+  inquirer.prompt({ name: "letter", message: "Enter a letter:" }).then(function(guess) {
+    // compare the letter to the lettersFromWord arr to see if it matches any
+    if (word.compareLetter(guess.letter, lettersFromWord) == true) {
+      console.log("Correct!"); // if it does tell them it does
+      console.log("Correct!" + "\n" + word + "\n" + "So Far You've Guessed: " +
+        lettersGuessed + "\n" + "Guesses Remaining: " + guessesLeft)
+
+    }
+    else { // subtract one from guessesLeft
+      guessesLeft--;
+      if (guessesLeft > 0) { // if you have any guesses left ...
+        console.log("Incorrect, You now have " + guessesLeft + " guesses remaining.");
+      }
+      else { // otherwise the game is over
+        console.log("Game over!");
+      }
+    } // check if we won the game or not
+    if (word.checkIfWeWon(lettersFromWord) == false) { // if its not
+      if (guessesLeft > 0) { // and you still have some guesses remaining
+        playGame(); // guess again
+      }
+    }
+    else { // otherwise you won so congrats
+      displayWord(); // show the word
+      console.log("You Win!"); // tell them they won
+      inquirer.prompt([{ // ask them if they'd like to play again
+          type: "confirm",
+          message: "Would you like to play again?",
+          name: "confirm",
+          default: true
+        }])
+        .then(function(inquirerResponse) {
+          // If they want to play again ...
+          if (inquirerResponse.confirm) {
+            // reset the currentWord
+            currentWord = word.newWord;
+            // start new game
+            playGame();
+          }
+        });
+    }
+  });
+}
+
+
+
 
 
 // prompt user if they would like to play the game or create a word
 inquirer.prompt([{ // create a username
+      type: "input",
+      message: "What is your name?",
+      name: "username"
+    },
+    { // ask which they would like to do
+      type: "list",
+      message: "Would you like to create a word or play the game?",
+      choices: ["Create Word", "Play Game"],
+      name: "decision"
+    }
+  ])
+  .then(function(inquirerResponse) {
+    // If the inquirerResponse is to play the game ...
+    if (inquirerResponse.decision === "Play Game") {
+      console.log("\nWelcome " + inquirerResponse.username);
+      // play the game
+      playGame();
+    }
+
+    else { // create a word to be added to the words.txt file
+      inquirer.prompt([
+          // ask the user to input their word
+          {
             type: "input",
-            message: "What is your name?",
-            name: "username"
-        },
-        { // ask which they would like to do
-            type: "list",
-            message: "Would you like to create a word or play the game?",
-            choices: ["Create Word", "Play Game"],
-            name: "decision"
-        }
-    ])
-    .then(function(inquirerResponse) {
-        // If the inquirerResponse is to play the game ...
-        if (inquirerResponse.decision === "Play Game") {
-            console.log("\nWelcome " + inquirerResponse.username);
-            // play the game
-            // need to show the word and update the _ when we get the letter right
-            // need to have logic if we got it right or wrong
-            // right will show you the new version of the hidden letters/word and tell you good job
-            // wrong wlll subtract one from guesses and re-display the word
-            // if you win or lose the game inquirer will ask the user if they want to play again
-            // if they do it will get a new word and play again
-            // not sure how to do this, maybe with a while loop or a function that doesn't finish until guessesLeft = 0 or we win
-            // look into if you can get a function to do that
+            message: "Input a Word",
+            name: "newWord"
+          },
+        ])
+        .then(function(user) {
+          // If the inquirerResponse confirms, we displays the inquirerResponse's username and creates a new word
+          console.log("\nThanks for your input " + inquirerResponse.username);
+          CreateWord(user.newWord);
+        });
 
-        }
-
-
-
-
-
-
-
-        else { // create a word to be added to the words.txt file
-            inquirer.prompt([
-                    // ask the user to input their word
-                    {
-                        type: "input",
-                        message: "Input a Word",
-                        name: "newWord"
-                    },
-                ])
-                .then(function(user) {
-                    // If the inquirerResponse confirms, we displays the inquirerResponse's username and creates a new word
-                    console.log("\nThanks for your input " + inquirerResponse.username);
-                    CreateWord(user.newWord);
-                });
-
-        }
-    });
+    }
+  });
