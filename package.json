@@ -1,0 +1,23 @@
+{
+  "name": "command-line-hangman",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JoshJancula/command-line-hangman.git"
+  },
+  "author": "josh jancula",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JoshJancula/command-line-hangman/issues"
+  },
+  "homepage": "https://github.com/JoshJancula/command-line-hangman#readme",
+  "dependencies": {
+    "fs": "0.0.1-security",
+    "inquirer": "^4.0.1"
+  }
+}
