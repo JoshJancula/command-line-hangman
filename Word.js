@@ -3,7 +3,7 @@
 var Word = function(word) {
     this.word = word;
     // for each guessed character, step through the computer's word to see if it matches
-    this.compareLetter = function(letter, lettersFromWord) {
+    this.compareLetter = function(letter, lettersFromWord, lettersGuessed) {
         // set letterFound to false
         var letterFound = false;
         // go thru and check each letter
@@ -19,10 +19,11 @@ var Word = function(word) {
                 letterFound = true;
             }
         }
-    }
+        return letterFound;
+    };
 
     //checks to see if the word has been solved by checking to see if all the shown characters are letters
-    this.checkIfWeWon = function(lettersFromfWord) {
+    this.checkIfWeWon = function(lettersFromWord) {
         var weWon = true;
         for (var i = 0; i < this.word.length; i++) {
             // if there are any " _ " left you haven't won
@@ -30,8 +31,9 @@ var Word = function(word) {
                 weWon = false;
             }
         }
-    }
-}
+        return weWon;
+    };
+};
 
 
 

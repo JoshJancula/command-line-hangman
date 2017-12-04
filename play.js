@@ -1,22 +1,22 @@
 // npm for inquirer
 var inquirer = require("inquirer");
 // gets our randomWord from getWord
-var RandomWord = require("./getWord.js");
+var RandomWord = require("./RandomWord.js");
 //// link to the create file
 var CreateWord = require("./create.js");
 // gets the letters input into the letter.js file
 var Letter = require("./letters.js");
 // the words getting pulled from getWord
-var word = RandomWord();
-// console.log("in play.js 11: "+getWord);
+var word = new RandomWord();
+console.log(word.word);
 // the currentWord for this round
-var currentWord =  word.newWord;
+var currentWord = word.word;
 // guesses user gets
 var guessesLeft = 5;
 // the letters we've guessed
 var lettersGuessed = [];
 // letters in the currentWord
-var lettersFromWord;
+var lettersFromWord = [];
 // the lettersFromLoop array is populated by ...
 for (var i = 0; i < currentWord.length; i++) { // .. this lovely loop
   // which pushes each letter to letters
@@ -85,9 +85,9 @@ function playGame() {
   // first load the display
   displayWord();
   // ask the user to input a letter
-  inquirer.prompt({ name: "letter", message: "Enter a letter:" }).then(function(guess) {
+  inquirer.prompt({ name: "letter", message: "Guess a letter:" }).then(function(guess) {
     // compare the letter to the lettersFromWord arr to see if it matches any
-    if (word.compareLetter(guess.letter, lettersFromWord) == true) {
+    if (word.compareLetter(guess.letter, lettersFromWord, lettersGuessed) == true) {
       console.log("Correct!"); // if it does tell them it does
       console.log("Correct!" + "\n" + word + "\n" + "So Far You've Guessed: " +
         lettersGuessed + "\n" + "Guesses Remaining: " + guessesLeft)
@@ -120,7 +120,7 @@ function playGame() {
           // If they want to play again ...
           if (inquirerResponse.confirm) {
             // reset the currentWord
-            currentWord = word.newWord;
+            currentWord = word.word;
             // start new game
             playGame();
           }
