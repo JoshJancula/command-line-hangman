@@ -12,6 +12,10 @@ var CreateWord = function (word) {
     }
   });
 }
+
+
+
+CreateWord("turtle");
 // export it
 module.exports = CreateWord
 

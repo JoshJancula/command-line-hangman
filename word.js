@@ -1,4 +1,5 @@
 
+
 var Word = function(word) {
     this.word = word;
     // for each guessed character, step through the computer's word to see if it matches
@@ -31,6 +32,9 @@ var Word = function(word) {
         }
     }
 }
+
+
+
 
 // export it
 module.exports = Word
