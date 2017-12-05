@@ -7,11 +7,10 @@ var Letter = function(letter) {
   this.showOutput = function() {
     return this.output;
   }
-   //changes the temporary character being shown to the actual letter
+  //changes the temporary character being shown to the actual letter
   this.changeOutput = function() {
     this.output = letter;
   }
 }
-
+// export it
 module.exports = Letter
-

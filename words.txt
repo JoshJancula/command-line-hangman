@@ -1,1 +1,2 @@
-dolphin, whale, eagle, penguin, otter, turtleturtle, turtle, turtle, turtle, Turtle, turtle, squirrel, turtle, turtle, turtle, turtle, snake, turtle, pidgeon, turtle, turtle, turtle, turtle, turtle, turtle, turtle, turtle, turtle, turtle, 
+dolphin, whale, eagle, penguin, otter, turtle, raptor, falcon, alligator, wolf , badger, deer, owl, cat, crab, fish, chicken, kangaroo, hippo, dove, ostrich, bee, horse,
+giraffe, reaper, marlin, marlin, eel, bat, zebra, bird, crab, donkey, skink, 

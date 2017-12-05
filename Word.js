@@ -1,5 +1,3 @@
-
-
 var Word = function(word) {
     this.word = word;
     // for each guessed character, step through the computer's word to see if it matches
@@ -8,17 +6,19 @@ var Word = function(word) {
         var letterFound = false;
         // go thru and check each letter
         for (var i = 0; i < word.length; i++) {
-            var oneCharFromWord = word.slice(i, 1);
+            var oneCharFromWord = word.charAt(i);
             // if it matches
-            if (letter === oneCharFromWord) {
+
+            if (letter == oneCharFromWord) {
                 // change the output of the letter
                 lettersFromWord[i].changeOutput();
-                // store the letter in the lettersGuessed
-                lettersGuessed.push(letter)
                 // letterFound is now true
                 letterFound = true;
             }
+
         }
+        // store the letter in the lettersGuessed
+        lettersGuessed.push(letter);
         return letterFound;
     };
 

@@ -7,20 +7,15 @@ var RandomWord = function () {
   var fs = require("fs");
   var contentsArr = [];
   var contents = fs.readFileSync("words.txt", "utf8");
-
-    // If the code experiences any errors it will log the error to the console.
-    // if (error) {
-    //   return console.log(error);
-    // }
     // Then split it by commas (to make it more readable)
-    contentsArr = contents.split(",");
+    contentsArr = contents.split(", ");
     // the new word we randomly pick out of the .txt file
-    var newWord = new Word(contentsArr[Math.floor(Math.random() * contentsArr.length)]);
+    this.newWord = new Word(contentsArr[Math.floor(Math.random() * contentsArr.length)]);
+    // this now has the characteristics of Word
+    this.word = this.newWord.word;
 
-    this.word = newWord.word;
 
-  // });
 
 }
-
+// ship it out
 module.exports = RandomWord
