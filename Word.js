@@ -8,7 +8,7 @@ var Word = function(word) {
         for (var i = 0; i < word.length; i++) {
             var oneCharFromWord = word.charAt(i);
             // if it matches
-
+            console.log(lettersFromWord);
             if (letter == oneCharFromWord) {
                 // change the output of the letter
                 lettersFromWord[i].changeOutput();

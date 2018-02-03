@@ -21,3 +21,6 @@ word.js will be constructor function that takes parameter "word"
             -it will also save that letter in lettersGuessed
         -the other will check to see if we won the round of not
             -are there any _ remaining or not
+
+
+

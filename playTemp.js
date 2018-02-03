@@ -21,14 +21,14 @@ var lettersFromWord = [];
 
 // function to reset lettersFromWord
 function resetLetters(currentWord) {
-  // console.log(currentWord);
+  console.log(currentWord);
   lettersFromWord = [];
   // the lettersFromLoop array is populated by ...
   for (var i = 0; i < currentWord.length; i++) { // .. this lovely loop
     // which pushes each letter to letters
     lettersFromWord.push(new Letter(currentWord.charAt(i)));
   }
-
+  console.log(lettersFromWord);
 }
 
 
@@ -59,7 +59,7 @@ inquirer.prompt([{ // create a username
           // welcome them to the game
           console.log("\nWelcome " + inquirerResponse.username);
           // play the game
-          playGame(word.newWord);
+          playGame();
         });
     }
 
@@ -75,13 +75,19 @@ inquirer.prompt([{ // create a username
         .then(function(user) {
           // If the inquirerResponse confirms, we displays the inquirerResponse's username and creates a new word
           console.log("\nThanks, Player 2 Get Ready");
-
-          const user_word = new Word(user.newWord);
-          resetLetters(user_word.word);
+          // player 1 creates a word
+          CreateWord(user.newWord);
+          // this word gets word characteristics
+            // word.word = user.newWord;
+          // this word is now currentWord
+          word.word = new Word(user.newWord);
+          currentWord = word.word.word;
+          // reset the letters in lettersFromWord
+          resetLetters(currentWord);
           // reset lettersGuessed
           lettersGuessed = [];
           // start game
-          playGame(user_word);
+          playGame();
         });
 
     }
@@ -102,14 +108,14 @@ function displayWord() {
 
 
 // function to play the game
-function playGame(word) {
+function playGame() {
   // first load the display
   displayWord();
   // ask the user to input a letter
   inquirer.prompt({ name: "letter", message: "Guess a letter:" }).then(function(guess) {
-    // console.log(guess.letter);
+    console.log(guess.letter);
     // compare the letter to the lettersFromWord arr to see if it matches any
-    if (word.compareLetter(guess.letter, lettersFromWord, lettersGuessed) == true) {
+    if (word.newWord.compareLetter(guess.letter, lettersFromWord, lettersGuessed) == true) {
       // if it does tell them it does
       console.log("Correct!" + "\n" + "So Far You've Guessed: " +
         lettersGuessed + "\n" + "Guesses Remaining: " + guessesLeft);
@@ -150,9 +156,9 @@ function playGame(word) {
           });
       }
     } // check if we won the game or not
-    if (word.checkIfWeWon(lettersFromWord) == false) { // if its not
+    if (word.newWord.checkIfWeWon(lettersFromWord) == false) { // if its not
       if (guessesLeft > 0) { // and you still have some guesses remaining
-        playGame(word); // guess again
+        playGame(); // guess again
       }
     }
     else { // otherwise you won so congrats
